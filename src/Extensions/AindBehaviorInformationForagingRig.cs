@@ -1304,7 +1304,7 @@ namespace AindInformationForagingDataSchema.AindBehaviorInformationForagingRig
     public partial class AindInformationForagingRig
     {
     
-        private string _describedBy = "";
+        private string _describedBy = "https://raw.githubusercontent.com/AllenNeuralDynamics/Aind.Behavior.InformationForaging/main/src/DataSchemas/aind_behavior_information_foraging_rig.json";
     
         private string _schemaVersion = "0.0.0";
     

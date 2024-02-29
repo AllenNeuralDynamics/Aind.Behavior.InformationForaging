@@ -414,7 +414,8 @@
   "additionalProperties": false,
   "properties": {
     "describedBy": {
-      "default": "",
+      "const": "https://raw.githubusercontent.com/AllenNeuralDynamics/Aind.Behavior.InformationForaging/main/src/DataSchemas/aind_behavior_information_foraging_rig.json",
+      "default": "https://raw.githubusercontent.com/AllenNeuralDynamics/Aind.Behavior.InformationForaging/main/src/DataSchemas/aind_behavior_information_foraging_rig.json",
       "title": "Describedby",
       "type": "string"
     },

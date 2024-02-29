@@ -15,7 +15,7 @@ namespace AindInformationForagingDataSchema.AindBehaviorInformationForagingSessi
     public partial class AindInformationForagingSession
     {
     
-        private string _describedBy = "";
+        private string _describedBy = "https://raw.githubusercontent.com/AllenNeuralDynamics/Aind.Behavior.InformationForaging/main/src/DataSchemas/aind_behavior_information_foraging_session.json";
     
         private string _schemaVersion = "0.1.0";
     

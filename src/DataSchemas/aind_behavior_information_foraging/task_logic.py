@@ -12,7 +12,11 @@ from pydantic import BaseModel, Field, RootModel
 
 
 class AindInformationForagingTaskLogic(AindBehaviorTaskLogicModel):
-    describedBy: str = Field("")
+    describedBy: Literal[
+        "https://raw.githubusercontent.com/AllenNeuralDynamics/Aind.Behavior.InformationForaging/main/src/DataSchemas/aind_behavior_information_foraging_task_logic.json"
+    ] = Field(
+        "https://raw.githubusercontent.com/AllenNeuralDynamics/Aind.Behavior.InformationForaging/main/src/DataSchemas/aind_behavior_information_foraging_task_logic.json"
+    )
     schema_version: Literal[__version__] = __version__
 
 
