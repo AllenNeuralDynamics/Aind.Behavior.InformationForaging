@@ -1,0 +1,18 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "describedBy": {
+      "default": "",
+      "title": "Describedby",
+      "type": "string"
+    },
+    "schema_version": {
+      "const": "0.0.0",
+      "default": "0.0.0",
+      "title": "Schema Version",
+      "type": "string"
+    }
+  },
+  "title": "AindInformationForagingTaskLogic",
+  "type": "object"
+}

@@ -8,7 +8,7 @@ import aind_behavior_services.rig as rig
 from aind_behavior_services.rig import AindBehaviorRigModel
 from pydantic import BaseModel, Field
 
-__version__ = "0.1.0"
+__version__ = "0.0.0"
 
 
 class AindInformationForagingRig(AindBehaviorRigModel):
