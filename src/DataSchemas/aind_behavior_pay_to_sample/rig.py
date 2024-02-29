@@ -11,7 +11,7 @@ from pydantic import BaseModel, Field
 __version__ = "0.1.0"
 
 
-class AindPayToSampleRig(AindBehaviorRigModel):
+class AindInformationForagingRig(AindBehaviorRigModel):
     describedBy: str = Field("")
     schema_version: Literal[__version__] = __version__
     auxiliary_camera0: Optional[rig.WebCamera] = Field(default=rig.WebCamera(), description="Auxiliary camera 0")
@@ -30,4 +30,4 @@ class AindPayToSampleRig(AindBehaviorRigModel):
 
 
 def schema() -> BaseModel:
-    return AindPayToSampleRig
+    return AindInformationForagingRig

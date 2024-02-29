@@ -1,5 +1,5 @@
-# Aind.Behavior.PayToSample
-A repository for the aind-pay-to-sample experiment
+# Aind.Behavior.InformationForaging
+A repository for the aind-information-foraging experiment
 
 ## Deployment
 
