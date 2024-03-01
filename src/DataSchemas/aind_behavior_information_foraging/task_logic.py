@@ -59,6 +59,32 @@ class AudioControl(BaseModel):
     frequency: float = Field(default=1000, ge=100, description="Frequency", units="Hz")
 
 
+class Texture(BaseModel):
+    name: str = Field(default="default", description="Name of the texture")
+    size: Size = Field(default=Size(width=40, height=40), description="Size of the texture")
+
+
+class WallTextures(BaseModel):
+    floor: Texture = Field(..., description="The texture of the floor")
+    ceiling: Texture = Field(..., description="The texture of the ceiling")
+    left: Texture = Field(..., description="The texture of the left")
+    right: Texture = Field(..., description="The texture of the right")
+
+
+class VisualCorridor(BaseModel):
+    id: int = Field(default=0, ge=0, description="Id of the visual corridor object")
+    size: Size = Field(default=Size(width=40, height=40), description="Size of the corridor (cm)")
+    start_position: float = Field(default=0, ge=0, description="Start position of the corridor (cm)")
+    length: float = Field(default=120, ge=0, description="Length of the corridor site (cm)")
+    textures: WallTextures = Field(..., description="The textures of the corridor")
+
+
+class RenderControl(BaseModel):
+    corridor_seed: VisualCorridor = Field(
+        default=VisualCorridor(), validate_default=True, description="Seed of the visual corridor"
+    )
+
+
 class OperationControl(BaseModel):
     odor_control: OdorControl = Field(default=OdorControl(), description="Control of the odor", validate_default=True)
     position_control: PositionControl = Field(
@@ -67,6 +93,35 @@ class OperationControl(BaseModel):
     audio_control: AudioControl = Field(
         default=AudioControl(), description="Control of the audio", validate_default=True
     )
+    render_control: RenderControl = Field(
+        default=RenderControl(), description="Control of the rendering", validate_default=True
+    )
+
+
+class InterpolationMethod(str, Enum):
+    NEAREST = "Nearest"
+    LINEAR = "Linear"
+    ROUNDUP = "Roundup"
+    ROUNDDOWN = "RoundDown"
+
+
+class Reward(BaseModel):
+    pass
+
+
+class PatchInformation(BaseModel):
+    pass
+
+
+class PatchOdorSpecs(BaseModel):
+    identity: None
+    max_duration: float
+
+
+class Patch(BaseModel):
+    reward: Reward
+    information: List[PatchInformation] = Field(default=[], description="Information of the patch")
+    odor: PatchOdorSpecs = Field(default=PatchOdorSpecs(), description="Odor of the patch")
 
 
 class AindInformationForagingTaskLogic(AindBehaviorTaskLogicModel):
@@ -76,7 +131,9 @@ class AindInformationForagingTaskLogic(AindBehaviorTaskLogicModel):
         "https://raw.githubusercontent.com/AllenNeuralDynamics/Aind.Behavior.InformationForaging/main/src/DataSchemas/aind_behavior_information_foraging_task_logic.json"
     )
     schema_version: Literal[__version__] = __version__
-    operation_control: OperationControl = Field(OperationControl(), validate_default=True, description="Control of the task")
+    operation_control: OperationControl = Field(
+        OperationControl(), validate_default=True, description="Control of the task"
+    )
     placeholder: distributions.Distribution
 
 
