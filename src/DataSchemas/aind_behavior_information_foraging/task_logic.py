@@ -104,12 +104,43 @@ class InterpolationMethod(str, Enum):
     ROUNDDOWN = "RoundDown"
 
 
+class Interpolator(BaseModel):
+    method: InterpolationMethod = Field(default=InterpolationMethod.NEAREST, description="Interpolation method")
+    lookup: Dict[float, float] = Field(
+        default={0.0: 1.0}, validate_default=True, min_length=1, description="Lookup table to interpolate the value "
+    )
+    use_absolute: bool = Field(
+        default=False, description="Whether to use the absolute value of the distance to the center of the reward zone"
+    )
+
+
 class Reward(BaseModel):
-    pass
+    location: distributions.Distribution = Field(
+        ..., description="Location of the center of the reward zone(x_r) relative to x_0"
+    )
+    lower_bound = Field(..., ge=0, description="Lower bound of the reward zone (x_r - value)")
+    upper_bound = Field(..., ge=0, description="Upper bound of the reward zone (x_r + value)")
+    amount: distributions.Distribution = Field(..., description="Amount of the reward")
+    delay: distributions.Distribution = Field(..., description="Delay of the reward", units="s")
+    amount_scaling: Optional[Interpolator] = Field(
+        default=None, description="Interpolation of the reward amount based on (x-x_r)"
+    )
 
 
 class PatchInformation(BaseModel):
-    pass
+    probability_function: Interpolator = Field(
+        default=Interpolator(),
+        validate_default=True,
+        description="Probability function of information delivery in the patch",
+    )
+    odor_concentration_function: Interpolator = Field(
+        default=Interpolator(),
+        validate_default=True,
+        description="Probability function of information delivery in the patch",
+    )
+    max_sampling_duration: float = Field(default=10, description="Maximum duration of the information sampling")
+    sampling_zone_size: float = Field(default=5, description="Grace distance to exit the sampling zone")
+    sampling_cost_time: float = Field(default=0.5, description="Time cost of sampling the information")
 
 
 class PatchOdorSpecs(BaseModel):
