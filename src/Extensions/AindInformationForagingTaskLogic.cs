@@ -5,7 +5,7 @@
 //----------------------
 
 
-namespace AindInformationForagingDataSchema.AindBehaviorInformationForagingTask
+namespace AindInformationForagingDataSchema.TaskLogic
 {
     #pragma warning disable // Disable all warnings
 
@@ -1498,6 +1498,8 @@ namespace AindInformationForagingDataSchema.AindBehaviorInformationForagingTask
     
         private AudioControl _audioControl;
     
+        private RenderControl _renderControl = new RenderControl();
+    
         public OperationControl()
         {
         }
@@ -1507,6 +1509,7 @@ namespace AindInformationForagingDataSchema.AindBehaviorInformationForagingTask
             _odorControl = other._odorControl;
             _positionControl = other._positionControl;
             _audioControl = other._audioControl;
+            _renderControl = other._renderControl;
         }
     
         /// <summary>
@@ -1563,6 +1566,24 @@ namespace AindInformationForagingDataSchema.AindBehaviorInformationForagingTask
             }
         }
     
+        /// <summary>
+        /// Control of the rendering
+        /// </summary>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [Newtonsoft.Json.JsonPropertyAttribute("render_control", Required=Newtonsoft.Json.Required.Always)]
+        [System.ComponentModel.DescriptionAttribute("Control of the rendering")]
+        public RenderControl RenderControl
+        {
+            get
+            {
+                return _renderControl;
+            }
+            set
+            {
+                _renderControl = value;
+            }
+        }
+    
         public System.IObservable<OperationControl> Process()
         {
             return System.Reactive.Linq.Observable.Defer(() => System.Reactive.Linq.Observable.Return(new OperationControl(this)));
@@ -1577,7 +1598,8 @@ namespace AindInformationForagingDataSchema.AindBehaviorInformationForagingTask
         {
             stringBuilder.Append("odor_control = " + _odorControl + ", ");
             stringBuilder.Append("position_control = " + _positionControl + ", ");
-            stringBuilder.Append("audio_control = " + _audioControl);
+            stringBuilder.Append("audio_control = " + _audioControl + ", ");
+            stringBuilder.Append("render_control = " + _renderControl);
             return true;
         }
     
@@ -1914,6 +1936,72 @@ namespace AindInformationForagingDataSchema.AindBehaviorInformationForagingTask
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Bonsai.Sgen", "0.3.0.0 (Newtonsoft.Json v13.0.0.0)")]
     [Bonsai.CombinatorAttribute()]
     [Bonsai.WorkflowElementCategoryAttribute(Bonsai.ElementCategory.Source)]
+    public partial class RenderControl
+    {
+    
+        private VisualCorridor _corridorSeed = new VisualCorridor();
+    
+        public RenderControl()
+        {
+        }
+    
+        protected RenderControl(RenderControl other)
+        {
+            _corridorSeed = other._corridorSeed;
+        }
+    
+        /// <summary>
+        /// Seed of the visual corridor
+        /// </summary>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [Newtonsoft.Json.JsonPropertyAttribute("corridor_seed", Required=Newtonsoft.Json.Required.Always)]
+        [System.ComponentModel.DescriptionAttribute("Seed of the visual corridor")]
+        public VisualCorridor CorridorSeed
+        {
+            get
+            {
+                return _corridorSeed;
+            }
+            set
+            {
+                _corridorSeed = value;
+            }
+        }
+    
+        public System.IObservable<RenderControl> Process()
+        {
+            return System.Reactive.Linq.Observable.Defer(() => System.Reactive.Linq.Observable.Return(new RenderControl(this)));
+        }
+    
+        public System.IObservable<RenderControl> Process<TSource>(System.IObservable<TSource> source)
+        {
+            return System.Reactive.Linq.Observable.Select(source, _ => new RenderControl(this));
+        }
+    
+        protected virtual bool PrintMembers(System.Text.StringBuilder stringBuilder)
+        {
+            stringBuilder.Append("corridor_seed = " + _corridorSeed);
+            return true;
+        }
+    
+        public override string ToString()
+        {
+            System.Text.StringBuilder stringBuilder = new System.Text.StringBuilder();
+            stringBuilder.Append(GetType().Name);
+            stringBuilder.Append(" { ");
+            if (PrintMembers(stringBuilder))
+            {
+                stringBuilder.Append(" ");
+            }
+            stringBuilder.Append("}");
+            return stringBuilder.ToString();
+        }
+    }
+
+
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Bonsai.Sgen", "0.3.0.0 (Newtonsoft.Json v13.0.0.0)")]
+    [Bonsai.CombinatorAttribute()]
+    [Bonsai.WorkflowElementCategoryAttribute(Bonsai.ElementCategory.Source)]
     public partial class Scalar : Distribution
     {
     
@@ -2199,6 +2287,179 @@ namespace AindInformationForagingDataSchema.AindBehaviorInformationForagingTask
         {
             stringBuilder.Append("scale = " + _scale + ", ");
             stringBuilder.Append("offset = " + _offset);
+            return true;
+        }
+    
+        public override string ToString()
+        {
+            System.Text.StringBuilder stringBuilder = new System.Text.StringBuilder();
+            stringBuilder.Append(GetType().Name);
+            stringBuilder.Append(" { ");
+            if (PrintMembers(stringBuilder))
+            {
+                stringBuilder.Append(" ");
+            }
+            stringBuilder.Append("}");
+            return stringBuilder.ToString();
+        }
+    }
+
+
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Bonsai.Sgen", "0.3.0.0 (Newtonsoft.Json v13.0.0.0)")]
+    [Bonsai.CombinatorAttribute()]
+    [Bonsai.WorkflowElementCategoryAttribute(Bonsai.ElementCategory.Source)]
+    public partial class Size
+    {
+    
+        private double _width = 0D;
+    
+        private double _height = 0D;
+    
+        public Size()
+        {
+        }
+    
+        protected Size(Size other)
+        {
+            _width = other._width;
+            _height = other._height;
+        }
+    
+        /// <summary>
+        /// Width of the texture
+        /// </summary>
+        [Newtonsoft.Json.JsonPropertyAttribute("width")]
+        [System.ComponentModel.DescriptionAttribute("Width of the texture")]
+        public double Width
+        {
+            get
+            {
+                return _width;
+            }
+            set
+            {
+                _width = value;
+            }
+        }
+    
+        /// <summary>
+        /// Height of the texture
+        /// </summary>
+        [Newtonsoft.Json.JsonPropertyAttribute("height")]
+        [System.ComponentModel.DescriptionAttribute("Height of the texture")]
+        public double Height
+        {
+            get
+            {
+                return _height;
+            }
+            set
+            {
+                _height = value;
+            }
+        }
+    
+        public System.IObservable<Size> Process()
+        {
+            return System.Reactive.Linq.Observable.Defer(() => System.Reactive.Linq.Observable.Return(new Size(this)));
+        }
+    
+        public System.IObservable<Size> Process<TSource>(System.IObservable<TSource> source)
+        {
+            return System.Reactive.Linq.Observable.Select(source, _ => new Size(this));
+        }
+    
+        protected virtual bool PrintMembers(System.Text.StringBuilder stringBuilder)
+        {
+            stringBuilder.Append("width = " + _width + ", ");
+            stringBuilder.Append("height = " + _height);
+            return true;
+        }
+    
+        public override string ToString()
+        {
+            System.Text.StringBuilder stringBuilder = new System.Text.StringBuilder();
+            stringBuilder.Append(GetType().Name);
+            stringBuilder.Append(" { ");
+            if (PrintMembers(stringBuilder))
+            {
+                stringBuilder.Append(" ");
+            }
+            stringBuilder.Append("}");
+            return stringBuilder.ToString();
+        }
+    }
+
+
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Bonsai.Sgen", "0.3.0.0 (Newtonsoft.Json v13.0.0.0)")]
+    [Bonsai.CombinatorAttribute()]
+    [Bonsai.WorkflowElementCategoryAttribute(Bonsai.ElementCategory.Source)]
+    public partial class Texture
+    {
+    
+        private string _name = "default";
+    
+        private Size _size;
+    
+        public Texture()
+        {
+        }
+    
+        protected Texture(Texture other)
+        {
+            _name = other._name;
+            _size = other._size;
+        }
+    
+        /// <summary>
+        /// Name of the texture
+        /// </summary>
+        [Newtonsoft.Json.JsonPropertyAttribute("name")]
+        [System.ComponentModel.DescriptionAttribute("Name of the texture")]
+        public string Name
+        {
+            get
+            {
+                return _name;
+            }
+            set
+            {
+                _name = value;
+            }
+        }
+    
+        /// <summary>
+        /// Size of the texture
+        /// </summary>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [Newtonsoft.Json.JsonPropertyAttribute("size")]
+        [System.ComponentModel.DescriptionAttribute("Size of the texture")]
+        public Size Size
+        {
+            get
+            {
+                return _size;
+            }
+            set
+            {
+                _size = value;
+            }
+        }
+    
+        public System.IObservable<Texture> Process()
+        {
+            return System.Reactive.Linq.Observable.Defer(() => System.Reactive.Linq.Observable.Return(new Texture(this)));
+        }
+    
+        public System.IObservable<Texture> Process<TSource>(System.IObservable<TSource> source)
+        {
+            return System.Reactive.Linq.Observable.Select(source, _ => new Texture(this));
+        }
+    
+        protected virtual bool PrintMembers(System.Text.StringBuilder stringBuilder)
+        {
+            stringBuilder.Append("name = " + _name + ", ");
+            stringBuilder.Append("size = " + _size);
             return true;
         }
     
@@ -2639,14 +2900,295 @@ namespace AindInformationForagingDataSchema.AindBehaviorInformationForagingTask
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Bonsai.Sgen", "0.3.0.0 (Newtonsoft.Json v13.0.0.0)")]
     [Bonsai.CombinatorAttribute()]
     [Bonsai.WorkflowElementCategoryAttribute(Bonsai.ElementCategory.Source)]
+    public partial class VisualCorridor
+    {
+    
+        private int _id = 0;
+    
+        private Size _size;
+    
+        private double _startPosition = 0D;
+    
+        private double _length = 120D;
+    
+        private WallTextures _textures = new WallTextures();
+    
+        public VisualCorridor()
+        {
+        }
+    
+        protected VisualCorridor(VisualCorridor other)
+        {
+            _id = other._id;
+            _size = other._size;
+            _startPosition = other._startPosition;
+            _length = other._length;
+            _textures = other._textures;
+        }
+    
+        /// <summary>
+        /// Id of the visual corridor object
+        /// </summary>
+        [Newtonsoft.Json.JsonPropertyAttribute("id")]
+        [System.ComponentModel.DescriptionAttribute("Id of the visual corridor object")]
+        public int Id
+        {
+            get
+            {
+                return _id;
+            }
+            set
+            {
+                _id = value;
+            }
+        }
+    
+        /// <summary>
+        /// Size of the corridor (cm)
+        /// </summary>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [Newtonsoft.Json.JsonPropertyAttribute("size")]
+        [System.ComponentModel.DescriptionAttribute("Size of the corridor (cm)")]
+        public Size Size
+        {
+            get
+            {
+                return _size;
+            }
+            set
+            {
+                _size = value;
+            }
+        }
+    
+        /// <summary>
+        /// Start position of the corridor (cm)
+        /// </summary>
+        [Newtonsoft.Json.JsonPropertyAttribute("start_position")]
+        [System.ComponentModel.DescriptionAttribute("Start position of the corridor (cm)")]
+        public double StartPosition
+        {
+            get
+            {
+                return _startPosition;
+            }
+            set
+            {
+                _startPosition = value;
+            }
+        }
+    
+        /// <summary>
+        /// Length of the corridor site (cm)
+        /// </summary>
+        [Newtonsoft.Json.JsonPropertyAttribute("length")]
+        [System.ComponentModel.DescriptionAttribute("Length of the corridor site (cm)")]
+        public double Length
+        {
+            get
+            {
+                return _length;
+            }
+            set
+            {
+                _length = value;
+            }
+        }
+    
+        /// <summary>
+        /// The textures of the corridor
+        /// </summary>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [Newtonsoft.Json.JsonPropertyAttribute("textures", Required=Newtonsoft.Json.Required.Always)]
+        [System.ComponentModel.DescriptionAttribute("The textures of the corridor")]
+        public WallTextures Textures
+        {
+            get
+            {
+                return _textures;
+            }
+            set
+            {
+                _textures = value;
+            }
+        }
+    
+        public System.IObservable<VisualCorridor> Process()
+        {
+            return System.Reactive.Linq.Observable.Defer(() => System.Reactive.Linq.Observable.Return(new VisualCorridor(this)));
+        }
+    
+        public System.IObservable<VisualCorridor> Process<TSource>(System.IObservable<TSource> source)
+        {
+            return System.Reactive.Linq.Observable.Select(source, _ => new VisualCorridor(this));
+        }
+    
+        protected virtual bool PrintMembers(System.Text.StringBuilder stringBuilder)
+        {
+            stringBuilder.Append("id = " + _id + ", ");
+            stringBuilder.Append("size = " + _size + ", ");
+            stringBuilder.Append("start_position = " + _startPosition + ", ");
+            stringBuilder.Append("length = " + _length + ", ");
+            stringBuilder.Append("textures = " + _textures);
+            return true;
+        }
+    
+        public override string ToString()
+        {
+            System.Text.StringBuilder stringBuilder = new System.Text.StringBuilder();
+            stringBuilder.Append(GetType().Name);
+            stringBuilder.Append(" { ");
+            if (PrintMembers(stringBuilder))
+            {
+                stringBuilder.Append(" ");
+            }
+            stringBuilder.Append("}");
+            return stringBuilder.ToString();
+        }
+    }
+
+
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Bonsai.Sgen", "0.3.0.0 (Newtonsoft.Json v13.0.0.0)")]
+    [Bonsai.CombinatorAttribute()]
+    [Bonsai.WorkflowElementCategoryAttribute(Bonsai.ElementCategory.Source)]
+    public partial class WallTextures
+    {
+    
+        private Texture _floor = new Texture();
+    
+        private Texture _ceiling = new Texture();
+    
+        private Texture _left = new Texture();
+    
+        private Texture _right = new Texture();
+    
+        public WallTextures()
+        {
+        }
+    
+        protected WallTextures(WallTextures other)
+        {
+            _floor = other._floor;
+            _ceiling = other._ceiling;
+            _left = other._left;
+            _right = other._right;
+        }
+    
+        /// <summary>
+        /// The texture of the floor
+        /// </summary>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [Newtonsoft.Json.JsonPropertyAttribute("floor", Required=Newtonsoft.Json.Required.Always)]
+        [System.ComponentModel.DescriptionAttribute("The texture of the floor")]
+        public Texture Floor
+        {
+            get
+            {
+                return _floor;
+            }
+            set
+            {
+                _floor = value;
+            }
+        }
+    
+        /// <summary>
+        /// The texture of the ceiling
+        /// </summary>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [Newtonsoft.Json.JsonPropertyAttribute("ceiling", Required=Newtonsoft.Json.Required.Always)]
+        [System.ComponentModel.DescriptionAttribute("The texture of the ceiling")]
+        public Texture Ceiling
+        {
+            get
+            {
+                return _ceiling;
+            }
+            set
+            {
+                _ceiling = value;
+            }
+        }
+    
+        /// <summary>
+        /// The texture of the left
+        /// </summary>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [Newtonsoft.Json.JsonPropertyAttribute("left", Required=Newtonsoft.Json.Required.Always)]
+        [System.ComponentModel.DescriptionAttribute("The texture of the left")]
+        public Texture Left
+        {
+            get
+            {
+                return _left;
+            }
+            set
+            {
+                _left = value;
+            }
+        }
+    
+        /// <summary>
+        /// The texture of the right
+        /// </summary>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [Newtonsoft.Json.JsonPropertyAttribute("right", Required=Newtonsoft.Json.Required.Always)]
+        [System.ComponentModel.DescriptionAttribute("The texture of the right")]
+        public Texture Right
+        {
+            get
+            {
+                return _right;
+            }
+            set
+            {
+                _right = value;
+            }
+        }
+    
+        public System.IObservable<WallTextures> Process()
+        {
+            return System.Reactive.Linq.Observable.Defer(() => System.Reactive.Linq.Observable.Return(new WallTextures(this)));
+        }
+    
+        public System.IObservable<WallTextures> Process<TSource>(System.IObservable<TSource> source)
+        {
+            return System.Reactive.Linq.Observable.Select(source, _ => new WallTextures(this));
+        }
+    
+        protected virtual bool PrintMembers(System.Text.StringBuilder stringBuilder)
+        {
+            stringBuilder.Append("floor = " + _floor + ", ");
+            stringBuilder.Append("ceiling = " + _ceiling + ", ");
+            stringBuilder.Append("left = " + _left + ", ");
+            stringBuilder.Append("right = " + _right);
+            return true;
+        }
+    
+        public override string ToString()
+        {
+            System.Text.StringBuilder stringBuilder = new System.Text.StringBuilder();
+            stringBuilder.Append(GetType().Name);
+            stringBuilder.Append(" { ");
+            if (PrintMembers(stringBuilder))
+            {
+                stringBuilder.Append(" ");
+            }
+            stringBuilder.Append("}");
+            return stringBuilder.ToString();
+        }
+    }
+
+
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Bonsai.Sgen", "0.3.0.0 (Newtonsoft.Json v13.0.0.0)")]
+    [Bonsai.CombinatorAttribute()]
+    [Bonsai.WorkflowElementCategoryAttribute(Bonsai.ElementCategory.Source)]
     public partial class AindInformationForagingTaskLogic
     {
     
-        private string _describedBy = "https://raw.githubusercontent.com/AllenNeuralDynamics/Aind.Behavior.InformationForaging/main/src/DataSchemas/aind_behavior_information_foraging_task_logic.json";
-    
         private string _schemaVersion = "0.0.0";
     
-        private OperationControl _operationControl;
+        private OperationControl _operationControl = new OperationControl();
     
         private Distribution _placeholder;
     
@@ -2656,23 +3198,9 @@ namespace AindInformationForagingDataSchema.AindBehaviorInformationForagingTask
     
         protected AindInformationForagingTaskLogic(AindInformationForagingTaskLogic other)
         {
-            _describedBy = other._describedBy;
             _schemaVersion = other._schemaVersion;
             _operationControl = other._operationControl;
             _placeholder = other._placeholder;
-        }
-    
-        [Newtonsoft.Json.JsonPropertyAttribute("describedBy")]
-        public string DescribedBy
-        {
-            get
-            {
-                return _describedBy;
-            }
-            set
-            {
-                _describedBy = value;
-            }
         }
     
         [Newtonsoft.Json.JsonPropertyAttribute("schema_version")]
@@ -2692,7 +3220,7 @@ namespace AindInformationForagingDataSchema.AindBehaviorInformationForagingTask
         /// Control of the task
         /// </summary>
         [System.Xml.Serialization.XmlIgnoreAttribute()]
-        [Newtonsoft.Json.JsonPropertyAttribute("operation_control")]
+        [Newtonsoft.Json.JsonPropertyAttribute("operation_control", Required=Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DescriptionAttribute("Control of the task")]
         public OperationControl OperationControl
         {
@@ -2732,7 +3260,6 @@ namespace AindInformationForagingDataSchema.AindBehaviorInformationForagingTask
     
         protected virtual bool PrintMembers(System.Text.StringBuilder stringBuilder)
         {
-            stringBuilder.Append("describedBy = " + _describedBy + ", ");
             stringBuilder.Append("schema_version = " + _schemaVersion + ", ");
             stringBuilder.Append("operation_control = " + _operationControl + ", ");
             stringBuilder.Append("placeholder = " + _placeholder);
@@ -3137,6 +3664,11 @@ namespace AindInformationForagingDataSchema.AindBehaviorInformationForagingTask
             return Process<PositionControl>(source);
         }
 
+        public System.IObservable<string> Process(System.IObservable<RenderControl> source)
+        {
+            return Process<RenderControl>(source);
+        }
+
         public System.IObservable<string> Process(System.IObservable<Scalar> source)
         {
             return Process<Scalar>(source);
@@ -3150,6 +3682,16 @@ namespace AindInformationForagingDataSchema.AindBehaviorInformationForagingTask
         public System.IObservable<string> Process(System.IObservable<ScalingParameters> source)
         {
             return Process<ScalingParameters>(source);
+        }
+
+        public System.IObservable<string> Process(System.IObservable<Size> source)
+        {
+            return Process<Size>(source);
+        }
+
+        public System.IObservable<string> Process(System.IObservable<Texture> source)
+        {
+            return Process<Texture>(source);
         }
 
         public System.IObservable<string> Process(System.IObservable<TruncationParameters> source)
@@ -3170,6 +3712,16 @@ namespace AindInformationForagingDataSchema.AindBehaviorInformationForagingTask
         public System.IObservable<string> Process(System.IObservable<Vector3> source)
         {
             return Process<Vector3>(source);
+        }
+
+        public System.IObservable<string> Process(System.IObservable<VisualCorridor> source)
+        {
+            return Process<VisualCorridor>(source);
+        }
+
+        public System.IObservable<string> Process(System.IObservable<WallTextures> source)
+        {
+            return Process<WallTextures>(source);
         }
 
         public System.IObservable<string> Process(System.IObservable<AindInformationForagingTaskLogic> source)
@@ -3215,13 +3767,18 @@ namespace AindInformationForagingDataSchema.AindBehaviorInformationForagingTask
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<PoissonDistribution>))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<PoissonDistributionParameters>))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<PositionControl>))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<RenderControl>))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<Scalar>))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<ScalarDistributionParameter>))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<ScalingParameters>))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<Size>))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<Texture>))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<TruncationParameters>))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<UniformDistribution>))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<UniformDistributionParameters>))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<Vector3>))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<VisualCorridor>))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<WallTextures>))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<AindInformationForagingTaskLogic>))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<TruncationParameters2>))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<ScalingParameters2>))]

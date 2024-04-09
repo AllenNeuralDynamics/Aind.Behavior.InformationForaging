@@ -12,11 +12,6 @@ __version__ = "0.0.0"
 
 
 class AindInformationForagingRig(AindBehaviorRigModel):
-    describedBy: Literal[
-        "https://raw.githubusercontent.com/AllenNeuralDynamics/Aind.Behavior.InformationForaging/main/src/DataSchemas/aind_behavior_information_foraging_rig.json"
-    ] = Field(
-        "https://raw.githubusercontent.com/AllenNeuralDynamics/Aind.Behavior.InformationForaging/main/src/DataSchemas/aind_behavior_information_foraging_rig.json"
-    )
     schema_version: Literal[__version__] = __version__
     auxiliary_camera0: Optional[rig.WebCamera] = Field(default=rig.WebCamera(), description="Auxiliary camera 0")
     auxiliary_camera1: Optional[rig.WebCamera] = Field(default=rig.WebCamera(), description="Auxiliary camera 1")
@@ -30,7 +25,6 @@ class AindInformationForagingRig(AindBehaviorRigModel):
     side_body_camera: Optional[rig.SpinnakerCamera] = Field(default=None, description="Side body camera")
     screen: rig.Screen = Field(default=rig.Screen(), description="Screen settings")
     treadmill: rig.Treadmill = Field(default=rig.Treadmill(), description="Treadmill settings")
-    water_valve: rig.Valve = Field(default=rig.Valve(), description="Water valve settings")
 
 
 def schema() -> BaseModel:

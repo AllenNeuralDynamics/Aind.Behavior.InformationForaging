@@ -23,7 +23,6 @@
       "type": "object"
     },
     "BetaDistribution": {
-      "additionalProperties": false,
       "properties": {
         "family": {
           "const": "Beta",
@@ -73,7 +72,6 @@
       "type": "object"
     },
     "BetaDistributionParameters": {
-      "additionalProperties": false,
       "properties": {
         "family": {
           "const": "Beta",
@@ -100,7 +98,6 @@
       "type": "object"
     },
     "BinomialDistribution": {
-      "additionalProperties": false,
       "properties": {
         "family": {
           "const": "Binomial",
@@ -150,7 +147,6 @@
       "type": "object"
     },
     "BinomialDistributionParameters": {
-      "additionalProperties": false,
       "properties": {
         "family": {
           "const": "Binomial",
@@ -224,7 +220,6 @@
       "title": "Distribution"
     },
     "ExponentialDistribution": {
-      "additionalProperties": false,
       "properties": {
         "family": {
           "const": "Exponential",
@@ -273,7 +268,6 @@
       "type": "object"
     },
     "ExponentialDistributionParameters": {
-      "additionalProperties": false,
       "properties": {
         "family": {
           "const": "Exponential",
@@ -293,7 +287,6 @@
       "type": "object"
     },
     "GammaDistribution": {
-      "additionalProperties": false,
       "properties": {
         "family": {
           "const": "Gamma",
@@ -343,7 +336,6 @@
       "type": "object"
     },
     "GammaDistributionParameters": {
-      "additionalProperties": false,
       "properties": {
         "family": {
           "const": "Gamma",
@@ -370,7 +362,6 @@
       "type": "object"
     },
     "LogNormalDistribution": {
-      "additionalProperties": false,
       "properties": {
         "family": {
           "const": "LogNormal",
@@ -420,7 +411,6 @@
       "type": "object"
     },
     "LogNormalDistributionParameters": {
-      "additionalProperties": false,
       "properties": {
         "family": {
           "const": "LogNormal",
@@ -445,7 +435,6 @@
       "type": "object"
     },
     "NormalDistribution": {
-      "additionalProperties": false,
       "properties": {
         "family": {
           "const": "Normal",
@@ -495,7 +484,6 @@
       "type": "object"
     },
     "NormalDistributionParameters": {
-      "additionalProperties": false,
       "properties": {
         "family": {
           "const": "Normal",
@@ -603,13 +591,23 @@
             "frequency": 1000.0
           },
           "description": "Control of the audio"
+        },
+        "render_control": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/RenderControl"
+            }
+          ],
+          "description": "Control of the rendering"
         }
       },
+      "required": [
+        "render_control"
+      ],
       "title": "OperationControl",
       "type": "object"
     },
     "PoissonDistribution": {
-      "additionalProperties": false,
       "properties": {
         "family": {
           "const": "Poisson",
@@ -658,7 +656,6 @@
       "type": "object"
     },
     "PoissonDistributionParameters": {
-      "additionalProperties": false,
       "properties": {
         "family": {
           "const": "Poisson",
@@ -724,8 +721,24 @@
       "title": "PositionControl",
       "type": "object"
     },
+    "RenderControl": {
+      "properties": {
+        "corridor_seed": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/VisualCorridor"
+            }
+          ],
+          "description": "Seed of the visual corridor"
+        }
+      },
+      "required": [
+        "corridor_seed"
+      ],
+      "title": "RenderControl",
+      "type": "object"
+    },
     "Scalar": {
-      "additionalProperties": false,
       "properties": {
         "family": {
           "const": "Scalar",
@@ -776,7 +789,6 @@
       "type": "object"
     },
     "ScalarDistributionParameter": {
-      "additionalProperties": false,
       "properties": {
         "family": {
           "const": "Scalar",
@@ -807,7 +819,6 @@
       "type": "object"
     },
     "ScalingParameters": {
-      "additionalProperties": false,
       "properties": {
         "scale": {
           "default": 1,
@@ -825,8 +836,49 @@
       "title": "ScalingParameters",
       "type": "object"
     },
+    "Size": {
+      "properties": {
+        "width": {
+          "default": 0,
+          "description": "Width of the texture",
+          "title": "Width",
+          "type": "number"
+        },
+        "height": {
+          "default": 0,
+          "description": "Height of the texture",
+          "title": "Height",
+          "type": "number"
+        }
+      },
+      "title": "Size",
+      "type": "object"
+    },
+    "Texture": {
+      "properties": {
+        "name": {
+          "default": "default",
+          "description": "Name of the texture",
+          "title": "Name",
+          "type": "string"
+        },
+        "size": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/Size"
+            }
+          ],
+          "default": {
+            "width": 40.0,
+            "height": 40.0
+          },
+          "description": "Size of the texture"
+        }
+      },
+      "title": "Texture",
+      "type": "object"
+    },
     "TruncationParameters": {
-      "additionalProperties": false,
       "properties": {
         "is_truncated": {
           "default": false,
@@ -851,7 +903,6 @@
       "type": "object"
     },
     "UniformDistribution": {
-      "additionalProperties": false,
       "properties": {
         "family": {
           "const": "Uniform",
@@ -901,7 +952,6 @@
       "type": "object"
     },
     "UniformDistributionParameters": {
-      "additionalProperties": false,
       "properties": {
         "family": {
           "const": "Uniform",
@@ -948,16 +998,103 @@
       },
       "title": "Vector3",
       "type": "object"
+    },
+    "VisualCorridor": {
+      "properties": {
+        "id": {
+          "default": 0,
+          "description": "Id of the visual corridor object",
+          "minimum": 0,
+          "title": "Id",
+          "type": "integer"
+        },
+        "size": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/Size"
+            }
+          ],
+          "default": {
+            "width": 40.0,
+            "height": 40.0
+          },
+          "description": "Size of the corridor (cm)"
+        },
+        "start_position": {
+          "default": 0,
+          "description": "Start position of the corridor (cm)",
+          "minimum": 0.0,
+          "title": "Start Position",
+          "type": "number"
+        },
+        "length": {
+          "default": 120,
+          "description": "Length of the corridor site (cm)",
+          "minimum": 0.0,
+          "title": "Length",
+          "type": "number"
+        },
+        "textures": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/WallTextures"
+            }
+          ],
+          "description": "The textures of the corridor"
+        }
+      },
+      "required": [
+        "textures"
+      ],
+      "title": "VisualCorridor",
+      "type": "object"
+    },
+    "WallTextures": {
+      "properties": {
+        "floor": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/Texture"
+            }
+          ],
+          "description": "The texture of the floor"
+        },
+        "ceiling": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/Texture"
+            }
+          ],
+          "description": "The texture of the ceiling"
+        },
+        "left": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/Texture"
+            }
+          ],
+          "description": "The texture of the left"
+        },
+        "right": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/Texture"
+            }
+          ],
+          "description": "The texture of the right"
+        }
+      },
+      "required": [
+        "floor",
+        "ceiling",
+        "left",
+        "right"
+      ],
+      "title": "WallTextures",
+      "type": "object"
     }
   },
-  "additionalProperties": false,
   "properties": {
-    "describedBy": {
-      "const": "https://raw.githubusercontent.com/AllenNeuralDynamics/Aind.Behavior.InformationForaging/main/src/DataSchemas/aind_behavior_information_foraging_task_logic.json",
-      "default": "https://raw.githubusercontent.com/AllenNeuralDynamics/Aind.Behavior.InformationForaging/main/src/DataSchemas/aind_behavior_information_foraging_task_logic.json",
-      "title": "Describedby",
-      "type": "string"
-    },
     "schema_version": {
       "const": "0.0.0",
       "default": "0.0.0",
@@ -970,32 +1107,6 @@
           "$ref": "#/definitions/OperationControl"
         }
       ],
-      "default": {
-        "odor_control": {
-          "target_odor_flow": 100.0,
-          "target_total_flow": 1000.0,
-          "use_channel_3_as_carrier": true,
-          "valve_max_open_time": 10.0
-        },
-        "position_control": {
-          "frequency_filter_cutoff": 0.5,
-          "gain": {
-            "x": 1.0,
-            "y": 1.0,
-            "z": 1.0
-          },
-          "initial_position": {
-            "x": 0.0,
-            "y": 2.56,
-            "z": 0.0
-          },
-          "velocity_threshold": 1.0
-        },
-        "audio_control": {
-          "duration": 0.2,
-          "frequency": 1000.0
-        }
-      },
       "description": "Control of the task"
     },
     "placeholder": {
@@ -1003,6 +1114,7 @@
     }
   },
   "required": [
+    "operation_control",
     "placeholder"
   ],
   "title": "AindInformationForagingTaskLogic",

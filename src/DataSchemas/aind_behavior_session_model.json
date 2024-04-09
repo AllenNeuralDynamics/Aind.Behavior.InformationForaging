@@ -1,15 +1,8 @@
 {
-  "additionalProperties": false,
   "properties": {
-    "describedBy": {
-      "const": "https://raw.githubusercontent.com/AllenNeuralDynamics/Aind.Behavior.InformationForaging/main/src/DataSchemas/aind_behavior_information_foraging_session.json",
-      "default": "https://raw.githubusercontent.com/AllenNeuralDynamics/Aind.Behavior.InformationForaging/main/src/DataSchemas/aind_behavior_information_foraging_session.json",
-      "title": "Describedby",
-      "type": "string"
-    },
     "schema_version": {
-      "const": "0.1.0",
-      "default": "0.1.0",
+      "const": "0.1.1",
+      "default": "0.1.1",
       "title": "Schema Version",
       "type": "string"
     },
@@ -110,6 +103,6 @@
     "subject",
     "experiment_version"
   ],
-  "title": "AindInformationForagingSession",
+  "title": "AindBehaviorSessionModel",
   "type": "object"
 }

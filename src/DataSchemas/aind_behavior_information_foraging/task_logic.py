@@ -1,8 +1,8 @@
 from __future__ import annotations
 
 from enum import Enum
-from typing import Annotated, Dict, List, Literal, Optional, Union
 from functools import partial
+from typing import Annotated, Dict, List, Literal, Optional, Union
 
 import aind_behavior_services.task_logic.distributions as distributions
 from aind_behavior_information_foraging import __version__
@@ -79,9 +79,7 @@ class VisualCorridor(BaseModel):
 
 
 class RenderControl(BaseModel):
-    corridor_seed: VisualCorridor = Field(
-        default=VisualCorridor(), validate_default=True, description="Seed of the visual corridor"
-    )
+    corridor_seed: VisualCorridor = Field(..., validate_default=True, description="Seed of the visual corridor")
 
 
 class OperationControl(BaseModel):
@@ -93,7 +91,7 @@ class OperationControl(BaseModel):
         default=AudioControl(), description="Control of the audio", validate_default=True
     )
     render_control: RenderControl = Field(
-        default=RenderControl(), description="Control of the rendering", validate_default=True
+        default=..., description="Control of the rendering", validate_default=True
     )
 
 
@@ -118,8 +116,8 @@ class Reward(BaseModel):
     location: distributions.Distribution = Field(
         ..., description="Location of the center of the reward zone(x_r) relative to x_0"
     )
-    lower_bound = Field(..., ge=0, description="Lower bound of the reward zone (x_r - value)")
-    upper_bound = Field(..., ge=0, description="Upper bound of the reward zone (x_r + value)")
+    lower_bound: float = Field(..., ge=0, description="Lower bound of the reward zone (x_r - value)")
+    upper_bound: float = Field(..., ge=0, description="Upper bound of the reward zone (x_r + value)")
     amount: distributions.Distribution = Field(..., description="Amount of the reward")
     delay: distributions.Distribution = Field(..., description="Delay of the reward", units="s")
     amount_scaling: Optional[Interpolator] = Field(
@@ -143,7 +141,7 @@ class PatchInformation(BaseModel):
     sampling_cost_time: float = Field(default=0.5, description="Time cost of sampling the information")
 
 
-class PatchOdorSpecs(BaseModel):
+class PatchOdorSpecs(BaseModel): #TODO
     identity: None
     max_duration: float
 
@@ -151,18 +149,13 @@ class PatchOdorSpecs(BaseModel):
 class Patch(BaseModel):
     reward: Reward
     information: List[PatchInformation] = Field(default=[], description="Information of the patch")
-    odor: PatchOdorSpecs = Field(default=PatchOdorSpecs(), description="Odor of the patch")
+    odor: PatchOdorSpecs = Field(default=..., description="Odor of the patch")
 
 
 class AindInformationForagingTaskLogic(AindBehaviorTaskLogicModel):
-    describedBy: Literal[
-        "https://raw.githubusercontent.com/AllenNeuralDynamics/Aind.Behavior.InformationForaging/main/src/DataSchemas/aind_behavior_information_foraging_task.json"
-    ] = Field(
-        "https://raw.githubusercontent.com/AllenNeuralDynamics/Aind.Behavior.InformationForaging/main/src/DataSchemas/aind_behavior_information_foraging_task.json"
-    )
     schema_version: Literal[__version__] = __version__
     operation_control: OperationControl = Field(
-        OperationControl(), validate_default=True, description="Control of the task"
+        ..., validate_default=True, description="Control of the task"
     )
     placeholder: distributions.Distribution
 
